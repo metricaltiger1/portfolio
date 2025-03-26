@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check for saved theme preference or use system preference
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
-        themeStyle.href = '../css/dark-mode.css';
+        themeStyle.href = 'css/dark-mode.css';
         document.querySelector('.toggle-ball').style.transform = 'translateX(30px)';
     }
 
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('theme', 'light');
             document.querySelector('.toggle-ball').style.transform = 'translateX(0)';
         } else {
-            themeStyle.href = '../css/dark-mode.css';
+            themeStyle.href = 'css/dark-mode.css';
             localStorage.setItem('theme', 'dark');
             document.querySelector('.toggle-ball').style.transform = 'translateX(30px)';
         }
