@@ -223,98 +223,108 @@ class TxtRotate {
   };
 
   // Initialize EmailJS
-  console.log('Initializing EmailJS...');
-  emailjs.init('Zp1P-9f_0cMqR-jzx')
-      .then(function() {
-          console.log('EmailJS successfully initialized');
-      })
-      .catch(function(error) {
-          console.error('EmailJS initialization failed:', error);
-      });
+// Initialize EmailJS
+console.log('Initializing EmailJS...');
+emailjs.init('Zp1P-9f_0cMqR-jzx')
+    .then(function() {
+        console.log('EmailJS successfully initialized');
+    })
+    .catch(function(error) {
+        console.error('EmailJS initialization failed:', error);
+    });
 
-  // Contact form handling
-  function setupContactForm() {
-      console.log('Setting up contact form');
-      const contactForm = document.getElementById('contactForm');
-      
-      if (!contactForm) {
-          console.log('Contact form not found yet');
-          return;
-      }
+// Contact form handling
+function setupContactForm() {
+    console.log('Setting up contact form');
+    const contactForm = document.getElementById('contactForm');
+    
+    if (!contactForm) {
+        console.log('Contact form not found yet');
+        return;
+    }
 
-      const submitBtn = document.getElementById('submitBtn');
-      const formMessage = document.getElementById('formMessage');
+    const submitBtn = document.getElementById('submitBtn');
+    const formMessage = document.getElementById('formMessage');
 
-      // Create spinner if it doesn't exist
-      if (!submitBtn.querySelector('.spinner')) {
-          const spinner = document.createElement('span');
-          spinner.className = 'spinner hidden';
-          submitBtn.appendChild(spinner);
-      }
+    // Create spinner if it doesn't exist
+    if (!submitBtn.querySelector('.spinner')) {
+        const spinner = document.createElement('span');
+        spinner.className = 'spinner hidden';
+        submitBtn.appendChild(spinner);
+    }
 
-      contactForm.addEventListener('submit', function(e) {
-          console.log('Form submission started');
-          e.preventDefault();
-          e.stopPropagation();
-          e.stopImmediatePropagation();
+    contactForm.addEventListener('submit', function(e) {
+        console.log('Form submission started');
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
 
-          // Set loading state
-          setFormState(true);
-          
-          const serviceID = 'service_t13xp4e';
-          const templateID = 'template_0qg0xmb';
+        // Set loading state
+        setFormState(true);
+        
+        const serviceID = 'service_t13xp4e';
+        const templateID = 'template_0qg0xmb';
 
-          console.log('Sending form data via EmailJS');
-          emailjs.sendForm(serviceID, templateID, contactForm)
-              .then((response) => {
-                  console.log('Email successfully sent', response);
-                  showFormMessage('Message sent successfully! I will get back to you soon.', 'success');
-                  contactForm.reset();
-              })
-              .catch((error) => {
-                  console.error('Failed to send email:', error);
-                  showFormMessage('Failed to send message. Please try again later.', 'error');
-              })
-              .finally(() => {
-                  setFormState(false);
-              });
-      });
+        // Prepare email parameters
+        const emailParams = {
+            name: contactForm.querySelector('#name').value,
+            from_name: contactForm.querySelector('#name').value, // Using same value as name
+            message: contactForm.querySelector('#message').value,
+            subject: contactForm.querySelector('#subject').value,
+            reply_to: contactForm.querySelector('#email').value
+        };
 
-      function setFormState(isSubmitting) {
-          console.log(`Setting form state to ${isSubmitting ? 'loading' : 'idle'}`);
-          const fields = contactForm.querySelectorAll('input, textarea, button');
-          fields.forEach(field => {
-              field.disabled = isSubmitting;
-          });
+        console.log('Sending email with parameters:', emailParams);
+        emailjs.send(serviceID, templateID, emailParams)
+            .then((response) => {
+                console.log('Email successfully sent', response);
+                showFormMessage('Message sent successfully! I will get back to you soon.', 'success');
+                contactForm.reset();
+            })
+            .catch((error) => {
+                console.error('Failed to send email:', error);
+                showFormMessage('Failed to send message. Please try again later.', 'error');
+            })
+            .finally(() => {
+                setFormState(false);
+            });
+    });
 
-          const spinner = submitBtn.querySelector('.spinner');
-          if (isSubmitting) {
-              submitBtn.classList.add('sending');
-              spinner.classList.remove('hidden');
-          } else {
-              submitBtn.classList.remove('sending');
-              spinner.classList.add('hidden');
-          }
-      }
+    function setFormState(isSubmitting) {
+        console.log(`Setting form state to ${isSubmitting ? 'loading' : 'idle'}`);
+        const fields = contactForm.querySelectorAll('input, textarea, button');
+        fields.forEach(field => {
+            field.disabled = isSubmitting;
+        });
 
-      function showFormMessage(message, type) {
-          console.log(`Showing message: ${message} (${type})`);
-          formMessage.textContent = message;
-          formMessage.className = `form-message ${type}`;
-          formMessage.classList.remove('hidden');
-          
-          setTimeout(() => {
-              formMessage.classList.add('hidden');
-          }, 5000);
-      }
-  }
+        const spinner = submitBtn.querySelector('.spinner');
+        if (isSubmitting) {
+            submitBtn.classList.add('sending');
+            spinner.classList.remove('hidden');
+        } else {
+            submitBtn.classList.remove('sending');
+            spinner.classList.add('hidden');
+        }
+    }
 
-  // Check for contact form periodically in case it loads after our initial check
-  const formCheckInterval = setInterval(() => {
-      if (document.getElementById('contactForm')) {
-          setupContactForm();
-          clearInterval(formCheckInterval);
-      }
-  }, 500);
+    function showFormMessage(message, type) {
+        console.log(`Showing message: ${message} (${type})`);
+        formMessage.textContent = message;
+        formMessage.className = `form-message ${type}`;
+        formMessage.classList.remove('hidden');
+        
+        setTimeout(() => {
+            formMessage.classList.add('hidden');
+        }, 5000);
+    }
+}
+
+// Check for contact form periodically in case it loads after our initial check
+const formCheckInterval = setInterval(() => {
+    if (document.getElementById('contactForm')) {
+        setupContactForm();
+        clearInterval(formCheckInterval);
+    }
+}, 500);
 });
 
