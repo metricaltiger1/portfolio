@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Christopher Okumu Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Reset and base */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+        overflow: hidden;
+      }
+
+      .container {
+        max-width: 600px;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 40px 30px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        animation: fadeIn 1.5s ease forwards;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #ffd700;
+      }
+
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        line-height: 1.5;
+      }
+
+      a.button {
+        display: inline-block;
+        padding: 12px 25px;
+        background: #ff7f50;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      a.button:hover {
+        background: #ff4500;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Fade-in animation */
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Decorative animated dots */
+      .dots span {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin: 0 5px;
+        background: #ffd700;
+        border-radius: 50%;
+        animation: bounce 0.6s infinite alternate;
+      }
+      .dots span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .dots span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes bounce {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-15px);
+        }
+      }
+    </style>
+    <script>
+      // Redirect after 5 seconds
+      setTimeout(() => {
+        window.location.href = "https://christopher-okumu-portfolio.web.app/";
+      }, 5000);
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to My New Portfolio!</h1>
+      <p>
+        Hi there! I've redesigned and moved my portfolio to a new platform with
+        modern features, projects, and updates.
+      </p>
+      <p>
+        You'll be automatically redirected shortly
+        <span class="dots"><span></span><span></span><span></span></span>
+      </p>
+      <a href="https://christopher-okumu-portfolio.web.app/" class="button"
+        >Go Now</a
+      >
+    </div>
+  </body>
+</html>
